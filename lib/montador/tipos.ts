@@ -27,3 +27,37 @@ export const OPCOES_DIA_SEMANA: OpcaoDiaSemana[] = [
   { valor: "sex", rotulo: "Sex", nome: "Sexta" },
   { valor: "sab", rotulo: "Sáb", nome: "Sábado" },
 ];
+
+export type QuinzenaTurma = "Q1" | "Q2";
+
+export type CargaHorariaTpie = {
+  teoria: number;
+  pratica: number;
+  individual: number;
+  extensao: number;
+};
+
+export type TurmaMontada = {
+  id: string;
+  turma: string;
+  creditos: number;
+  nome: string;
+  professor: string;
+  campus: string;
+  turno: string;
+  tipo: string;
+  horarioInicio: string;
+  horarioFim: string;
+  cargaHoraria: CargaHorariaTpie;
+  dias: DiaSemana[];
+  quinzenas: QuinzenaTurma[];
+};
+
+export function rotuloQuinzenaCurto(quinzena: Quinzena) {
+  if (quinzena === "todas") return "Todas";
+  return quinzena;
+}
+
+export function nomeDiaSemana(dia: DiaSemana) {
+  return OPCOES_DIA_SEMANA.find((opcao) => opcao.valor === dia)?.nome ?? dia;
+}
