@@ -36,3 +36,20 @@ export function IconeAdicionar(props: IconeProps) {
     </Icone>
   );
 }
+
+export function IconeBusca(props: IconeProps) {
+  return (
+    <Icone {...props}>
+      <circle cx="11" cy="11" r="7" />
+      <path d="m20 20-3.5-3.5" />
+    </Icone>
+  );
+}
+
+export function IconeSetaBaixo(props: IconeProps) {
+  return (
+    <Icone {...props}>
+      <path d="m6 9 6 6 6-6" />
+    </Icone>
+  );
+}
