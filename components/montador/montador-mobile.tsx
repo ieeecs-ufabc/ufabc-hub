@@ -6,15 +6,15 @@ import { FiltroQuinzena } from "@/components/montador/filtro-quinzena";
 import { MenuInferior } from "@/components/montador/menu-inferior";
 import type { DiaSemana, Quinzena } from "@/lib/montador/tipos";
 
-export function MontadorMobile() {
+type MontadorMobileProps = {
+  onAdicionarTurma: () => void;
+};
+
+export function MontadorMobile({ onAdicionarTurma }: MontadorMobileProps) {
   const [quinzena, setQuinzena] = useState<Quinzena>("Q1");
   const [dia, setDia] = useState<DiaSemana>("seg");
 
   const totalCreditos = 0;
-
-  function abrirDisciplinasOfertadas() {
-    // Será ligado à tela "Disciplinas Ofertadas" quando ela existir.
-  }
 
   return (
     <div className="flex flex-col gap-4 pb-20">
@@ -23,7 +23,7 @@ export function MontadorMobile() {
 
       <MenuInferior
         totalCreditos={totalCreditos}
-        onAdicionarTurma={abrirDisciplinasOfertadas}
+        onAdicionarTurma={onAdicionarTurma}
       />
     </div>
   );

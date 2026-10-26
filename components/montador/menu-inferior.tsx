@@ -13,7 +13,7 @@ export function MenuInferior({
   onAdicionarTurma,
 }: MenuInferiorProps) {
   return (
-    <div className="fixed inset-x-0 bottom-0 z-10 rounded-t-xl border-t border-slate-200/80 bg-white/95 backdrop-blur">
+    <div className="fixed inset-x-0 bottom-0 z-10 rounded-t-xl border-t border-slate-200/80 bg-white/95 backdrop-blur transition-[translate] duration-300 ease-out in-data-[pesquisando=true]:-translate-x-full motion-reduce:transition-none">
       <div className="mx-auto flex max-w-md items-center justify-between gap-3 px-4 py-1">
         <div className="flex min-w-0 items-center gap-2">
           <span className="grid size-8 shrink-0 place-items-center rounded-xl bg-emerald-100/90 text-emerald-800">
