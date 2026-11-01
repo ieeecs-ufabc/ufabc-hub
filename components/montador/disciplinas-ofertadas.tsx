@@ -7,6 +7,7 @@ import {
   FILTROS_OFERTADAS_INICIAIS,
   type FiltrosOfertadas,
 } from "@/lib/montador/ofertadas";
+import { SliderOcultarConflitos } from "./slider-ocultar-conflitos";
 
 type DisciplinasOfertadasProps = {
   ativa: boolean;
@@ -15,6 +16,8 @@ type DisciplinasOfertadasProps = {
 
 export function DisciplinasOfertadas({ ativa, onVoltar }: DisciplinasOfertadasProps) {
   const [filtros, setFiltros] = useState<FiltrosOfertadas>(FILTROS_OFERTADAS_INICIAIS);
+  const [ocultarConflitos, setOcultarConflitos] = useState(false);
+
   const tituloRef = useRef<HTMLHeadingElement>(null);
 
   useEffect(() => {
@@ -37,6 +40,11 @@ export function DisciplinasOfertadas({ ativa, onVoltar }: DisciplinasOfertadasPr
       </header>
 
       <MenuPesquisa value={filtros} onChange={setFiltros} />
+      
+        <SliderOcultarConflitos
+        checked={ocultarConflitos}
+        onCheckedChange={setOcultarConflitos}
+      />
 
       <div className="sticky bottom-0 -mx-4 mt-auto bg-white px-4 pt-3 pb-6">
         <button
