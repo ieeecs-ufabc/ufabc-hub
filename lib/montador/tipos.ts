@@ -34,3 +34,8 @@ export type CargaHorariaTpie = {
   individual: number;
   extensao: number;
 };
+
+export function rotuloQuinzenaCurto(quinzena: Quinzena) {
+  if (quinzena === "todas") return "Todas";
+  return quinzena;
+}
