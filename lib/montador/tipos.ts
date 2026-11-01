@@ -27,3 +27,10 @@ export const OPCOES_DIA_SEMANA: OpcaoDiaSemana[] = [
   { valor: "sex", rotulo: "Sex", nome: "Sexta" },
   { valor: "sab", rotulo: "Sáb", nome: "Sábado" },
 ];
+
+export type CargaHorariaTpie = {
+  teoria: number;
+  pratica: number;
+  individual: number;
+  extensao: number;
+};
