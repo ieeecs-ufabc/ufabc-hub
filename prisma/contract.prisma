@@ -1,0 +1,131 @@
+// use prisma-8
+// Contract inferred from the live database schema. Edit as needed, then run `prisma contract emit`.
+
+namespace public {
+  model Curso {
+    id     BigInt       @id(map: "curso_pkey") @default(autoincrement())
+    nome   VarChar(255)
+    turmas Turma[]
+
+    @@map("curso")
+  }
+
+  model Disciplina {
+    id                                            BigInt                   @id(map: "disciplina_pkey") @default(autoincrement())
+    codigo                                        VarChar(20)              @unique(map: "disciplina_codigo_key")
+    nome                                          VarChar(255)
+    cargaHoraria                                  Int                      @map("carga_horaria")
+    creditos                                      Int
+    bibliografiaBasica                            String?                  @map("bibliografia_basica")
+    bibliografiaComplementar                      String?                  @map("bibliografia_complementar")
+    horasTeoria                                   Int                      @default(0) @map("horas_teoria")
+    horasPratica                                  Int                      @default(0) @map("horas_pratica")
+    horasExtensao                                 Int                      @default(0) @map("horas_extensao")
+    horasIndividuais                              Int                      @default(0) @map("horas_individuais")
+    turmas                                        Turma[]
+    disciplinaRecomendacaos                       DisciplinaRecomendacao[] @relation(name: "fk_recomendacao_disciplina_filho")
+    disciplinaRecomendacaosDisciplinaRecomendacao DisciplinaRecomendacao[] @relation(name: "fk_recomendacao_disciplina_pai")
+
+    @@map("disciplina")
+  }
+
+  model DisciplinaRecomendacao {
+    id                      BigInt     @id(map: "disciplina_recomendacao_pkey") @default(autoincrement())
+    disciplinaId            BigInt     @map("disciplina_id")
+    disciplinaRecomendadaId BigInt     @map("disciplina_recomendada_id")
+    disciplinaRecomendada   Disciplina @relation(name: "fk_recomendacao_disciplina_filho", fields: [disciplinaRecomendadaId], references: [id], onDelete: Cascade, onUpdate: Cascade, map: "fk_recomendacao_disciplina_filho", index: false)
+    disciplina              Disciplina @relation(name: "fk_recomendacao_disciplina_pai", fields: [disciplinaId], references: [id], onDelete: Cascade, onUpdate: Cascade, map: "fk_recomendacao_disciplina_pai", index: "uq_disciplina_recomendacao")
+
+    @@unique([disciplinaId, disciplinaRecomendadaId], map: "uq_disciplina_recomendacao")
+    @@check(expression: sql`(disciplina_id <> disciplina_recomendada_id)`, map: "chk_disciplinas_diferentes")
+    @@map("disciplina_recomendacao")
+  }
+
+  model Docente {
+    id              BigInt        @id(map: "docente_pkey") @default(autoincrement())
+    nome            VarChar(255)
+    nomeNormalizado VarChar(255)  @map("nome_normalizado")
+    horarioAulas    HorarioAula[]
+
+    @@map("docente")
+  }
+
+  model Quadrimestre {
+    id      BigInt      @id(map: "quadrimestre_pkey") @default(autoincrement())
+    codigo  VarChar(10) @unique(map: "quadrimestre_codigo_key")
+    ano     Int
+    numero  Int
+    isAtual Boolean     @default(false) @map("is_atual")
+    turmas  Turma[]
+
+    @@unique([ano, numero], map: "uq_ano_quadrimestre")
+    @@check(expression: sql`((numero >= 1) AND (numero <= 3))`, map: "chk_numero_quadrimestre")
+    @@map("quadrimestre")
+  }
+
+  model Turma {
+    id             BigInt              @id(map: "turma_pkey") @default(autoincrement())
+    codigo         VarChar(20)
+    campus         pg.enum(EnumCampus)
+    turno          Char(1)
+    vagas          Int                 @default(0)
+    reserva        Int                 @default(0)
+    ingles         Boolean             @default(false)
+    espanhol       Boolean             @default(false)
+    disciplinaId   BigInt              @map("disciplina_id")
+    cursoId        BigInt              @map("curso_id")
+    quadrimestreId BigInt              @map("quadrimestre_id")
+    horarioAulas   HorarioAula[]
+    curso          Curso               @relation(fields: [cursoId], references: [id], onDelete: Restrict, onUpdate: Cascade, map: "fk_curso_turma", index: false)
+    disciplina     Disciplina          @relation(fields: [disciplinaId], references: [id], onDelete: Cascade, onUpdate: Cascade, map: "fk_disciplina_turma", index: false)
+    quadrimestre   Quadrimestre        @relation(fields: [quadrimestreId], references: [id], onDelete: Restrict, onUpdate: Cascade, map: "fk_quadrimestre_turma", index: false)
+
+    @@unique([codigo, disciplinaId, quadrimestreId, turno, campus], map: "uq_turma_disciplina_quadrimestre_turno_campus")
+    @@map("turma")
+  }
+
+  model HorarioAula {
+    id             BigInt                     @id(map: "horario_aula_pkey") @default(autoincrement())
+    tipo           pg.enum(EnumTipoAula)
+    diaSemana      pg.enum(EnumDiaSemana)     @map("dia_semana")
+    periodicidade  pg.enum(EnumPeriodicidade)
+    horarioInicio  TimeString                 @map("horario_inicio")
+    horarioTermino TimeString                 @map("horario_termino")
+    turmaId        BigInt                     @map("turma_id")
+    docenteId      BigInt?                    @map("docente_id")
+    docente        Docente?                   @relation(fields: [docenteId], references: [id], onDelete: SetNull, onUpdate: Cascade, map: "fk_docente_horario", index: false)
+    turma          Turma                      @relation(fields: [turmaId], references: [id], onDelete: Cascade, onUpdate: Cascade, map: "fk_turma_horario", index: false)
+
+    @@check(expression: sql`(horario_termino > horario_inicio)`, map: "chk_horario_valido")
+    @@map("horario_aula")
+  }
+
+  native_enum EnumCampus {
+    SA = "SA"
+    SBC = "SBC"
+    @@map("enum_campus")
+  }
+
+  native_enum EnumDiaSemana {
+    seg = "seg"
+    ter = "ter"
+    qua = "qua"
+    qui = "qui"
+    sex = "sex"
+    sab = "sab"
+    @@map("enum_dia_semana")
+  }
+
+  native_enum EnumPeriodicidade {
+    semanal = "semanal"
+    q1 = "q1"
+    q2 = "q2"
+    @@map("enum_periodicidade")
+  }
+
+  native_enum EnumTipoAula {
+    teoria = "teoria"
+    pratica = "pratica"
+    @@map("enum_tipo_aula")
+  }
+}

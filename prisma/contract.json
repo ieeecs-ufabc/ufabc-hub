@@ -1,0 +1,1562 @@
+{
+  "schemaVersion": "1",
+  "targetFamily": "sql",
+  "target": "postgres",
+  "profileHash": "3916f444a8a17ad749191acf9e08dad97d1a327b88c2f1d45d12f240296aa8b2",
+  "roots": {
+    "curso": {
+      "model": "Curso",
+      "namespace": "public"
+    },
+    "disciplina": {
+      "model": "Disciplina",
+      "namespace": "public"
+    },
+    "disciplina_recomendacao": {
+      "model": "DisciplinaRecomendacao",
+      "namespace": "public"
+    },
+    "docente": {
+      "model": "Docente",
+      "namespace": "public"
+    },
+    "horario_aula": {
+      "model": "HorarioAula",
+      "namespace": "public"
+    },
+    "quadrimestre": {
+      "model": "Quadrimestre",
+      "namespace": "public"
+    },
+    "turma": {
+      "model": "Turma",
+      "namespace": "public"
+    }
+  },
+  "domain": {
+    "namespaces": {
+      "public": {
+        "models": {
+          "Curso": {
+            "fields": {
+              "id": {
+                "nullable": false,
+                "type": {
+                  "codecId": "pg/int8@1",
+                  "kind": "scalar"
+                }
+              },
+              "nome": {
+                "nullable": false,
+                "type": {
+                  "codecId": "sql/varchar@1",
+                  "kind": "scalar",
+                  "typeParams": {
+                    "length": 255
+                  }
+                }
+              }
+            },
+            "relations": {
+              "turmas": {
+                "cardinality": "1:N",
+                "on": {
+                  "localFields": [
+                    "id"
+                  ],
+                  "targetFields": [
+                    "cursoId"
+                  ]
+                },
+                "to": {
+                  "model": "Turma",
+                  "namespace": "public"
+                }
+              }
+            },
+            "storage": {
+              "fields": {
+                "id": {
+                  "column": "id"
+                },
+                "nome": {
+                  "column": "nome"
+                }
+              },
+              "namespaceId": "public",
+              "table": "curso"
+            }
+          },
+          "Disciplina": {
+            "fields": {
+              "bibliografiaBasica": {
+                "nullable": true,
+                "type": {
+                  "codecId": "pg/text@1",
+                  "kind": "scalar"
+                }
+              },
+              "bibliografiaComplementar": {
+                "nullable": true,
+                "type": {
+                  "codecId": "pg/text@1",
+                  "kind": "scalar"
+                }
+              },
+              "cargaHoraria": {
+                "nullable": false,
+                "type": {
+                  "codecId": "pg/int4@1",
+                  "kind": "scalar"
+                }
+              },
+              "codigo": {
+                "nullable": false,
+                "type": {
+                  "codecId": "sql/varchar@1",
+                  "kind": "scalar",
+                  "typeParams": {
+                    "length": 20
+                  }
+                }
+              },
+              "creditos": {
+                "nullable": false,
+                "type": {
+                  "codecId": "pg/int4@1",
+                  "kind": "scalar"
+                }
+              },
+              "horasExtensao": {
+                "nullable": false,
+                "type": {
+                  "codecId": "pg/int4@1",
+                  "kind": "scalar"
+                }
+              },
+              "horasIndividuais": {
+                "nullable": false,
+                "type": {
+                  "codecId": "pg/int4@1",
+                  "kind": "scalar"
+                }
+              },
+              "horasPratica": {
+                "nullable": false,
+                "type": {
+                  "codecId": "pg/int4@1",
+                  "kind": "scalar"
+                }
+              },
+              "horasTeoria": {
+                "nullable": false,
+                "type": {
+                  "codecId": "pg/int4@1",
+                  "kind": "scalar"
+                }
+              },
+              "id": {
+                "nullable": false,
+                "type": {
+                  "codecId": "pg/int8@1",
+                  "kind": "scalar"
+                }
+              },
+              "nome": {
+                "nullable": false,
+                "type": {
+                  "codecId": "sql/varchar@1",
+                  "kind": "scalar",
+                  "typeParams": {
+                    "length": 255
+                  }
+                }
+              }
+            },
+            "relations": {
+              "disciplinaRecomendacaos": {
+                "cardinality": "1:N",
+                "on": {
+                  "localFields": [
+                    "id"
+                  ],
+                  "targetFields": [
+                    "disciplinaRecomendadaId"
+                  ]
+                },
+                "to": {
+                  "model": "DisciplinaRecomendacao",
+                  "namespace": "public"
+                }
+              },
+              "disciplinaRecomendacaosDisciplinaRecomendacao": {
+                "cardinality": "1:N",
+                "on": {
+                  "localFields": [
+                    "id"
+                  ],
+                  "targetFields": [
+                    "disciplinaId"
+                  ]
+                },
+                "to": {
+                  "model": "DisciplinaRecomendacao",
+                  "namespace": "public"
+                }
+              },
+              "turmas": {
+                "cardinality": "1:N",
+                "on": {
+                  "localFields": [
+                    "id"
+                  ],
+                  "targetFields": [
+                    "disciplinaId"
+                  ]
+                },
+                "to": {
+                  "model": "Turma",
+                  "namespace": "public"
+                }
+              }
+            },
+            "storage": {
+              "fields": {
+                "bibliografiaBasica": {
+                  "column": "bibliografia_basica"
+                },
+                "bibliografiaComplementar": {
+                  "column": "bibliografia_complementar"
+                },
+                "cargaHoraria": {
+                  "column": "carga_horaria"
+                },
+                "codigo": {
+                  "column": "codigo"
+                },
+                "creditos": {
+                  "column": "creditos"
+                },
+                "horasExtensao": {
+                  "column": "horas_extensao"
+                },
+                "horasIndividuais": {
+                  "column": "horas_individuais"
+                },
+                "horasPratica": {
+                  "column": "horas_pratica"
+                },
+                "horasTeoria": {
+                  "column": "horas_teoria"
+                },
+                "id": {
+                  "column": "id"
+                },
+                "nome": {
+                  "column": "nome"
+                }
+              },
+              "namespaceId": "public",
+              "table": "disciplina"
+            }
+          },
+          "DisciplinaRecomendacao": {
+            "fields": {
+              "disciplinaId": {
+                "nullable": false,
+                "type": {
+                  "codecId": "pg/int8@1",
+                  "kind": "scalar"
+                }
+              },
+              "disciplinaRecomendadaId": {
+                "nullable": false,
+                "type": {
+                  "codecId": "pg/int8@1",
+                  "kind": "scalar"
+                }
+              },
+              "id": {
+                "nullable": false,
+                "type": {
+                  "codecId": "pg/int8@1",
+                  "kind": "scalar"
+                }
+              }
+            },
+            "relations": {
+              "disciplina": {
+                "cardinality": "N:1",
+                "nullable": false,
+                "on": {
+                  "localFields": [
+                    "disciplinaId"
+                  ],
+                  "targetFields": [
+                    "id"
+                  ]
+                },
+                "to": {
+                  "model": "Disciplina",
+                  "namespace": "public"
+                }
+              },
+              "disciplinaRecomendada": {
+                "cardinality": "N:1",
+                "nullable": false,
+                "on": {
+                  "localFields": [
+                    "disciplinaRecomendadaId"
+                  ],
+                  "targetFields": [
+                    "id"
+                  ]
+                },
+                "to": {
+                  "model": "Disciplina",
+                  "namespace": "public"
+                }
+              }
+            },
+            "storage": {
+              "fields": {
+                "disciplinaId": {
+                  "column": "disciplina_id"
+                },
+                "disciplinaRecomendadaId": {
+                  "column": "disciplina_recomendada_id"
+                },
+                "id": {
+                  "column": "id"
+                }
+              },
+              "namespaceId": "public",
+              "table": "disciplina_recomendacao"
+            }
+          },
+          "Docente": {
+            "fields": {
+              "id": {
+                "nullable": false,
+                "type": {
+                  "codecId": "pg/int8@1",
+                  "kind": "scalar"
+                }
+              },
+              "nome": {
+                "nullable": false,
+                "type": {
+                  "codecId": "sql/varchar@1",
+                  "kind": "scalar",
+                  "typeParams": {
+                    "length": 255
+                  }
+                }
+              },
+              "nomeNormalizado": {
+                "nullable": false,
+                "type": {
+                  "codecId": "sql/varchar@1",
+                  "kind": "scalar",
+                  "typeParams": {
+                    "length": 255
+                  }
+                }
+              }
+            },
+            "relations": {
+              "horarioAulas": {
+                "cardinality": "1:N",
+                "on": {
+                  "localFields": [
+                    "id"
+                  ],
+                  "targetFields": [
+                    "docenteId"
+                  ]
+                },
+                "to": {
+                  "model": "HorarioAula",
+                  "namespace": "public"
+                }
+              }
+            },
+            "storage": {
+              "fields": {
+                "id": {
+                  "column": "id"
+                },
+                "nome": {
+                  "column": "nome"
+                },
+                "nomeNormalizado": {
+                  "column": "nome_normalizado"
+                }
+              },
+              "namespaceId": "public",
+              "table": "docente"
+            }
+          },
+          "HorarioAula": {
+            "fields": {
+              "diaSemana": {
+                "nullable": false,
+                "type": {
+                  "codecId": "pg/enum@1",
+                  "kind": "scalar",
+                  "typeParams": {
+                    "typeName": "enum_dia_semana"
+                  }
+                }
+              },
+              "docenteId": {
+                "nullable": true,
+                "type": {
+                  "codecId": "pg/int8@1",
+                  "kind": "scalar"
+                }
+              },
+              "horarioInicio": {
+                "nullable": false,
+                "type": {
+                  "codecId": "pg/time-string@1",
+                  "kind": "scalar"
+                }
+              },
+              "horarioTermino": {
+                "nullable": false,
+                "type": {
+                  "codecId": "pg/time-string@1",
+                  "kind": "scalar"
+                }
+              },
+              "id": {
+                "nullable": false,
+                "type": {
+                  "codecId": "pg/int8@1",
+                  "kind": "scalar"
+                }
+              },
+              "periodicidade": {
+                "nullable": false,
+                "type": {
+                  "codecId": "pg/enum@1",
+                  "kind": "scalar",
+                  "typeParams": {
+                    "typeName": "enum_periodicidade"
+                  }
+                }
+              },
+              "tipo": {
+                "nullable": false,
+                "type": {
+                  "codecId": "pg/enum@1",
+                  "kind": "scalar",
+                  "typeParams": {
+                    "typeName": "enum_tipo_aula"
+                  }
+                }
+              },
+              "turmaId": {
+                "nullable": false,
+                "type": {
+                  "codecId": "pg/int8@1",
+                  "kind": "scalar"
+                }
+              }
+            },
+            "relations": {
+              "docente": {
+                "cardinality": "N:1",
+                "nullable": true,
+                "on": {
+                  "localFields": [
+                    "docenteId"
+                  ],
+                  "targetFields": [
+                    "id"
+                  ]
+                },
+                "to": {
+                  "model": "Docente",
+                  "namespace": "public"
+                }
+              },
+              "turma": {
+                "cardinality": "N:1",
+                "nullable": false,
+                "on": {
+                  "localFields": [
+                    "turmaId"
+                  ],
+                  "targetFields": [
+                    "id"
+                  ]
+                },
+                "to": {
+                  "model": "Turma",
+                  "namespace": "public"
+                }
+              }
+            },
+            "storage": {
+              "fields": {
+                "diaSemana": {
+                  "column": "dia_semana"
+                },
+                "docenteId": {
+                  "column": "docente_id"
+                },
+                "horarioInicio": {
+                  "column": "horario_inicio"
+                },
+                "horarioTermino": {
+                  "column": "horario_termino"
+                },
+                "id": {
+                  "column": "id"
+                },
+                "periodicidade": {
+                  "column": "periodicidade"
+                },
+                "tipo": {
+                  "column": "tipo"
+                },
+                "turmaId": {
+                  "column": "turma_id"
+                }
+              },
+              "namespaceId": "public",
+              "table": "horario_aula"
+            }
+          },
+          "Quadrimestre": {
+            "fields": {
+              "ano": {
+                "nullable": false,
+                "type": {
+                  "codecId": "pg/int4@1",
+                  "kind": "scalar"
+                }
+              },
+              "codigo": {
+                "nullable": false,
+                "type": {
+                  "codecId": "sql/varchar@1",
+                  "kind": "scalar",
+                  "typeParams": {
+                    "length": 10
+                  }
+                }
+              },
+              "id": {
+                "nullable": false,
+                "type": {
+                  "codecId": "pg/int8@1",
+                  "kind": "scalar"
+                }
+              },
+              "isAtual": {
+                "nullable": false,
+                "type": {
+                  "codecId": "pg/bool@1",
+                  "kind": "scalar"
+                }
+              },
+              "numero": {
+                "nullable": false,
+                "type": {
+                  "codecId": "pg/int4@1",
+                  "kind": "scalar"
+                }
+              }
+            },
+            "relations": {
+              "turmas": {
+                "cardinality": "1:N",
+                "on": {
+                  "localFields": [
+                    "id"
+                  ],
+                  "targetFields": [
+                    "quadrimestreId"
+                  ]
+                },
+                "to": {
+                  "model": "Turma",
+                  "namespace": "public"
+                }
+              }
+            },
+            "storage": {
+              "fields": {
+                "ano": {
+                  "column": "ano"
+                },
+                "codigo": {
+                  "column": "codigo"
+                },
+                "id": {
+                  "column": "id"
+                },
+                "isAtual": {
+                  "column": "is_atual"
+                },
+                "numero": {
+                  "column": "numero"
+                }
+              },
+              "namespaceId": "public",
+              "table": "quadrimestre"
+            }
+          },
+          "Turma": {
+            "fields": {
+              "campus": {
+                "nullable": false,
+                "type": {
+                  "codecId": "pg/enum@1",
+                  "kind": "scalar",
+                  "typeParams": {
+                    "typeName": "enum_campus"
+                  }
+                }
+              },
+              "codigo": {
+                "nullable": false,
+                "type": {
+                  "codecId": "sql/varchar@1",
+                  "kind": "scalar",
+                  "typeParams": {
+                    "length": 20
+                  }
+                }
+              },
+              "cursoId": {
+                "nullable": false,
+                "type": {
+                  "codecId": "pg/int8@1",
+                  "kind": "scalar"
+                }
+              },
+              "disciplinaId": {
+                "nullable": false,
+                "type": {
+                  "codecId": "pg/int8@1",
+                  "kind": "scalar"
+                }
+              },
+              "espanhol": {
+                "nullable": false,
+                "type": {
+                  "codecId": "pg/bool@1",
+                  "kind": "scalar"
+                }
+              },
+              "id": {
+                "nullable": false,
+                "type": {
+                  "codecId": "pg/int8@1",
+                  "kind": "scalar"
+                }
+              },
+              "ingles": {
+                "nullable": false,
+                "type": {
+                  "codecId": "pg/bool@1",
+                  "kind": "scalar"
+                }
+              },
+              "quadrimestreId": {
+                "nullable": false,
+                "type": {
+                  "codecId": "pg/int8@1",
+                  "kind": "scalar"
+                }
+              },
+              "reserva": {
+                "nullable": false,
+                "type": {
+                  "codecId": "pg/int4@1",
+                  "kind": "scalar"
+                }
+              },
+              "turno": {
+                "nullable": false,
+                "type": {
+                  "codecId": "sql/char@1",
+                  "kind": "scalar",
+                  "typeParams": {
+                    "length": 1
+                  }
+                }
+              },
+              "vagas": {
+                "nullable": false,
+                "type": {
+                  "codecId": "pg/int4@1",
+                  "kind": "scalar"
+                }
+              }
+            },
+            "relations": {
+              "curso": {
+                "cardinality": "N:1",
+                "nullable": false,
+                "on": {
+                  "localFields": [
+                    "cursoId"
+                  ],
+                  "targetFields": [
+                    "id"
+                  ]
+                },
+                "to": {
+                  "model": "Curso",
+                  "namespace": "public"
+                }
+              },
+              "disciplina": {
+                "cardinality": "N:1",
+                "nullable": false,
+                "on": {
+                  "localFields": [
+                    "disciplinaId"
+                  ],
+                  "targetFields": [
+                    "id"
+                  ]
+                },
+                "to": {
+                  "model": "Disciplina",
+                  "namespace": "public"
+                }
+              },
+              "horarioAulas": {
+                "cardinality": "1:N",
+                "on": {
+                  "localFields": [
+                    "id"
+                  ],
+                  "targetFields": [
+                    "turmaId"
+                  ]
+                },
+                "to": {
+                  "model": "HorarioAula",
+                  "namespace": "public"
+                }
+              },
+              "quadrimestre": {
+                "cardinality": "N:1",
+                "nullable": false,
+                "on": {
+                  "localFields": [
+                    "quadrimestreId"
+                  ],
+                  "targetFields": [
+                    "id"
+                  ]
+                },
+                "to": {
+                  "model": "Quadrimestre",
+                  "namespace": "public"
+                }
+              }
+            },
+            "storage": {
+              "fields": {
+                "campus": {
+                  "column": "campus"
+                },
+                "codigo": {
+                  "column": "codigo"
+                },
+                "cursoId": {
+                  "column": "curso_id"
+                },
+                "disciplinaId": {
+                  "column": "disciplina_id"
+                },
+                "espanhol": {
+                  "column": "espanhol"
+                },
+                "id": {
+                  "column": "id"
+                },
+                "ingles": {
+                  "column": "ingles"
+                },
+                "quadrimestreId": {
+                  "column": "quadrimestre_id"
+                },
+                "reserva": {
+                  "column": "reserva"
+                },
+                "turno": {
+                  "column": "turno"
+                },
+                "vagas": {
+                  "column": "vagas"
+                }
+              },
+              "namespaceId": "public",
+              "table": "turma"
+            }
+          }
+        }
+      }
+    }
+  },
+  "storage": {
+    "namespaces": {
+      "public": {
+        "entries": {
+          "native_enum": {
+            "enum_campus": {
+              "kind": "postgres-enum",
+              "members": [
+                "SA",
+                "SBC"
+              ],
+              "typeName": "enum_campus"
+            },
+            "enum_dia_semana": {
+              "kind": "postgres-enum",
+              "members": [
+                "seg",
+                "ter",
+                "qua",
+                "qui",
+                "sex",
+                "sab"
+              ],
+              "typeName": "enum_dia_semana"
+            },
+            "enum_periodicidade": {
+              "kind": "postgres-enum",
+              "members": [
+                "semanal",
+                "q1",
+                "q2"
+              ],
+              "typeName": "enum_periodicidade"
+            },
+            "enum_tipo_aula": {
+              "kind": "postgres-enum",
+              "members": [
+                "teoria",
+                "pratica"
+              ],
+              "typeName": "enum_tipo_aula"
+            }
+          },
+          "table": {
+            "curso": {
+              "columns": {
+                "id": {
+                  "codecId": "pg/int8@1",
+                  "dataType": "pg/int8",
+                  "default": {
+                    "expression": "autoincrement()",
+                    "kind": "function"
+                  },
+                  "nullable": false
+                },
+                "nome": {
+                  "codecId": "sql/varchar@1",
+                  "dataType": "pg/varchar",
+                  "nullable": false,
+                  "typeParams": {
+                    "length": 255
+                  }
+                }
+              },
+              "foreignKeys": [],
+              "indexes": [],
+              "primaryKey": {
+                "columns": [
+                  "id"
+                ],
+                "name": "curso_pkey"
+              },
+              "uniques": []
+            },
+            "disciplina": {
+              "columns": {
+                "bibliografia_basica": {
+                  "codecId": "pg/text@1",
+                  "dataType": "pg/text",
+                  "nullable": true
+                },
+                "bibliografia_complementar": {
+                  "codecId": "pg/text@1",
+                  "dataType": "pg/text",
+                  "nullable": true
+                },
+                "carga_horaria": {
+                  "codecId": "pg/int4@1",
+                  "dataType": "pg/int4",
+                  "nullable": false
+                },
+                "codigo": {
+                  "codecId": "sql/varchar@1",
+                  "dataType": "pg/varchar",
+                  "nullable": false,
+                  "typeParams": {
+                    "length": 20
+                  }
+                },
+                "creditos": {
+                  "codecId": "pg/int4@1",
+                  "dataType": "pg/int4",
+                  "nullable": false
+                },
+                "horas_extensao": {
+                  "codecId": "pg/int4@1",
+                  "dataType": "pg/int4",
+                  "default": {
+                    "kind": "literal",
+                    "value": 0
+                  },
+                  "nullable": false
+                },
+                "horas_individuais": {
+                  "codecId": "pg/int4@1",
+                  "dataType": "pg/int4",
+                  "default": {
+                    "kind": "literal",
+                    "value": 0
+                  },
+                  "nullable": false
+                },
+                "horas_pratica": {
+                  "codecId": "pg/int4@1",
+                  "dataType": "pg/int4",
+                  "default": {
+                    "kind": "literal",
+                    "value": 0
+                  },
+                  "nullable": false
+                },
+                "horas_teoria": {
+                  "codecId": "pg/int4@1",
+                  "dataType": "pg/int4",
+                  "default": {
+                    "kind": "literal",
+                    "value": 0
+                  },
+                  "nullable": false
+                },
+                "id": {
+                  "codecId": "pg/int8@1",
+                  "dataType": "pg/int8",
+                  "default": {
+                    "expression": "autoincrement()",
+                    "kind": "function"
+                  },
+                  "nullable": false
+                },
+                "nome": {
+                  "codecId": "sql/varchar@1",
+                  "dataType": "pg/varchar",
+                  "nullable": false,
+                  "typeParams": {
+                    "length": 255
+                  }
+                }
+              },
+              "foreignKeys": [],
+              "indexes": [],
+              "primaryKey": {
+                "columns": [
+                  "id"
+                ],
+                "name": "disciplina_pkey"
+              },
+              "uniques": [
+                {
+                  "columns": [
+                    "codigo"
+                  ],
+                  "name": "disciplina_codigo_key"
+                }
+              ]
+            },
+            "disciplina_recomendacao": {
+              "checks": [
+                {
+                  "expression": "(disciplina_id <> disciplina_recomendada_id)",
+                  "name": "chk_disciplinas_diferentes"
+                }
+              ],
+              "columns": {
+                "disciplina_id": {
+                  "codecId": "pg/int8@1",
+                  "dataType": "pg/int8",
+                  "nullable": false
+                },
+                "disciplina_recomendada_id": {
+                  "codecId": "pg/int8@1",
+                  "dataType": "pg/int8",
+                  "nullable": false
+                },
+                "id": {
+                  "codecId": "pg/int8@1",
+                  "dataType": "pg/int8",
+                  "default": {
+                    "expression": "autoincrement()",
+                    "kind": "function"
+                  },
+                  "nullable": false
+                }
+              },
+              "foreignKeys": [
+                {
+                  "name": "fk_recomendacao_disciplina_filho",
+                  "onDelete": "cascade",
+                  "onUpdate": "cascade",
+                  "source": {
+                    "columns": [
+                      "disciplina_recomendada_id"
+                    ],
+                    "namespaceId": "public",
+                    "tableName": "disciplina_recomendacao"
+                  },
+                  "target": {
+                    "columns": [
+                      "id"
+                    ],
+                    "namespaceId": "public",
+                    "tableName": "disciplina"
+                  }
+                },
+                {
+                  "index": {
+                    "unique": [
+                      "disciplina_id",
+                      "disciplina_recomendada_id"
+                    ]
+                  },
+                  "name": "fk_recomendacao_disciplina_pai",
+                  "onDelete": "cascade",
+                  "onUpdate": "cascade",
+                  "source": {
+                    "columns": [
+                      "disciplina_id"
+                    ],
+                    "namespaceId": "public",
+                    "tableName": "disciplina_recomendacao"
+                  },
+                  "target": {
+                    "columns": [
+                      "id"
+                    ],
+                    "namespaceId": "public",
+                    "tableName": "disciplina"
+                  }
+                }
+              ],
+              "indexes": [],
+              "primaryKey": {
+                "columns": [
+                  "id"
+                ],
+                "name": "disciplina_recomendacao_pkey"
+              },
+              "uniques": [
+                {
+                  "columns": [
+                    "disciplina_id",
+                    "disciplina_recomendada_id"
+                  ],
+                  "name": "uq_disciplina_recomendacao"
+                }
+              ]
+            },
+            "docente": {
+              "columns": {
+                "id": {
+                  "codecId": "pg/int8@1",
+                  "dataType": "pg/int8",
+                  "default": {
+                    "expression": "autoincrement()",
+                    "kind": "function"
+                  },
+                  "nullable": false
+                },
+                "nome": {
+                  "codecId": "sql/varchar@1",
+                  "dataType": "pg/varchar",
+                  "nullable": false,
+                  "typeParams": {
+                    "length": 255
+                  }
+                },
+                "nome_normalizado": {
+                  "codecId": "sql/varchar@1",
+                  "dataType": "pg/varchar",
+                  "nullable": false,
+                  "typeParams": {
+                    "length": 255
+                  }
+                }
+              },
+              "foreignKeys": [],
+              "indexes": [],
+              "primaryKey": {
+                "columns": [
+                  "id"
+                ],
+                "name": "docente_pkey"
+              },
+              "uniques": []
+            },
+            "horario_aula": {
+              "checks": [
+                {
+                  "expression": "(horario_termino > horario_inicio)",
+                  "name": "chk_horario_valido"
+                }
+              ],
+              "columns": {
+                "dia_semana": {
+                  "codecId": "pg/enum@1",
+                  "dataType": "pg/enum",
+                  "nullable": false,
+                  "typeParams": {
+                    "typeName": "enum_dia_semana"
+                  },
+                  "valueSet": {
+                    "entityKind": "valueSet",
+                    "entityName": "EnumDiaSemana",
+                    "namespaceId": "public",
+                    "plane": "storage"
+                  }
+                },
+                "docente_id": {
+                  "codecId": "pg/int8@1",
+                  "dataType": "pg/int8",
+                  "nullable": true
+                },
+                "horario_inicio": {
+                  "codecId": "pg/time-string@1",
+                  "dataType": "pg/time",
+                  "nullable": false
+                },
+                "horario_termino": {
+                  "codecId": "pg/time-string@1",
+                  "dataType": "pg/time",
+                  "nullable": false
+                },
+                "id": {
+                  "codecId": "pg/int8@1",
+                  "dataType": "pg/int8",
+                  "default": {
+                    "expression": "autoincrement()",
+                    "kind": "function"
+                  },
+                  "nullable": false
+                },
+                "periodicidade": {
+                  "codecId": "pg/enum@1",
+                  "dataType": "pg/enum",
+                  "nullable": false,
+                  "typeParams": {
+                    "typeName": "enum_periodicidade"
+                  },
+                  "valueSet": {
+                    "entityKind": "valueSet",
+                    "entityName": "EnumPeriodicidade",
+                    "namespaceId": "public",
+                    "plane": "storage"
+                  }
+                },
+                "tipo": {
+                  "codecId": "pg/enum@1",
+                  "dataType": "pg/enum",
+                  "nullable": false,
+                  "typeParams": {
+                    "typeName": "enum_tipo_aula"
+                  },
+                  "valueSet": {
+                    "entityKind": "valueSet",
+                    "entityName": "EnumTipoAula",
+                    "namespaceId": "public",
+                    "plane": "storage"
+                  }
+                },
+                "turma_id": {
+                  "codecId": "pg/int8@1",
+                  "dataType": "pg/int8",
+                  "nullable": false
+                }
+              },
+              "foreignKeys": [
+                {
+                  "name": "fk_docente_horario",
+                  "onDelete": "setNull",
+                  "onUpdate": "cascade",
+                  "source": {
+                    "columns": [
+                      "docente_id"
+                    ],
+                    "namespaceId": "public",
+                    "tableName": "horario_aula"
+                  },
+                  "target": {
+                    "columns": [
+                      "id"
+                    ],
+                    "namespaceId": "public",
+                    "tableName": "docente"
+                  }
+                },
+                {
+                  "name": "fk_turma_horario",
+                  "onDelete": "cascade",
+                  "onUpdate": "cascade",
+                  "source": {
+                    "columns": [
+                      "turma_id"
+                    ],
+                    "namespaceId": "public",
+                    "tableName": "horario_aula"
+                  },
+                  "target": {
+                    "columns": [
+                      "id"
+                    ],
+                    "namespaceId": "public",
+                    "tableName": "turma"
+                  }
+                }
+              ],
+              "indexes": [],
+              "primaryKey": {
+                "columns": [
+                  "id"
+                ],
+                "name": "horario_aula_pkey"
+              },
+              "uniques": []
+            },
+            "quadrimestre": {
+              "checks": [
+                {
+                  "expression": "((numero >= 1) AND (numero <= 3))",
+                  "name": "chk_numero_quadrimestre"
+                }
+              ],
+              "columns": {
+                "ano": {
+                  "codecId": "pg/int4@1",
+                  "dataType": "pg/int4",
+                  "nullable": false
+                },
+                "codigo": {
+                  "codecId": "sql/varchar@1",
+                  "dataType": "pg/varchar",
+                  "nullable": false,
+                  "typeParams": {
+                    "length": 10
+                  }
+                },
+                "id": {
+                  "codecId": "pg/int8@1",
+                  "dataType": "pg/int8",
+                  "default": {
+                    "expression": "autoincrement()",
+                    "kind": "function"
+                  },
+                  "nullable": false
+                },
+                "is_atual": {
+                  "codecId": "pg/bool@1",
+                  "dataType": "pg/bool",
+                  "default": {
+                    "kind": "literal",
+                    "value": false
+                  },
+                  "nullable": false
+                },
+                "numero": {
+                  "codecId": "pg/int4@1",
+                  "dataType": "pg/int4",
+                  "nullable": false
+                }
+              },
+              "foreignKeys": [],
+              "indexes": [],
+              "primaryKey": {
+                "columns": [
+                  "id"
+                ],
+                "name": "quadrimestre_pkey"
+              },
+              "uniques": [
+                {
+                  "columns": [
+                    "codigo"
+                  ],
+                  "name": "quadrimestre_codigo_key"
+                },
+                {
+                  "columns": [
+                    "ano",
+                    "numero"
+                  ],
+                  "name": "uq_ano_quadrimestre"
+                }
+              ]
+            },
+            "turma": {
+              "columns": {
+                "campus": {
+                  "codecId": "pg/enum@1",
+                  "dataType": "pg/enum",
+                  "nullable": false,
+                  "typeParams": {
+                    "typeName": "enum_campus"
+                  },
+                  "valueSet": {
+                    "entityKind": "valueSet",
+                    "entityName": "EnumCampus",
+                    "namespaceId": "public",
+                    "plane": "storage"
+                  }
+                },
+                "codigo": {
+                  "codecId": "sql/varchar@1",
+                  "dataType": "pg/varchar",
+                  "nullable": false,
+                  "typeParams": {
+                    "length": 20
+                  }
+                },
+                "curso_id": {
+                  "codecId": "pg/int8@1",
+                  "dataType": "pg/int8",
+                  "nullable": false
+                },
+                "disciplina_id": {
+                  "codecId": "pg/int8@1",
+                  "dataType": "pg/int8",
+                  "nullable": false
+                },
+                "espanhol": {
+                  "codecId": "pg/bool@1",
+                  "dataType": "pg/bool",
+                  "default": {
+                    "kind": "literal",
+                    "value": false
+                  },
+                  "nullable": false
+                },
+                "id": {
+                  "codecId": "pg/int8@1",
+                  "dataType": "pg/int8",
+                  "default": {
+                    "expression": "autoincrement()",
+                    "kind": "function"
+                  },
+                  "nullable": false
+                },
+                "ingles": {
+                  "codecId": "pg/bool@1",
+                  "dataType": "pg/bool",
+                  "default": {
+                    "kind": "literal",
+                    "value": false
+                  },
+                  "nullable": false
+                },
+                "quadrimestre_id": {
+                  "codecId": "pg/int8@1",
+                  "dataType": "pg/int8",
+                  "nullable": false
+                },
+                "reserva": {
+                  "codecId": "pg/int4@1",
+                  "dataType": "pg/int4",
+                  "default": {
+                    "kind": "literal",
+                    "value": 0
+                  },
+                  "nullable": false
+                },
+                "turno": {
+                  "codecId": "sql/char@1",
+                  "dataType": "pg/char",
+                  "nullable": false,
+                  "typeParams": {
+                    "length": 1
+                  }
+                },
+                "vagas": {
+                  "codecId": "pg/int4@1",
+                  "dataType": "pg/int4",
+                  "default": {
+                    "kind": "literal",
+                    "value": 0
+                  },
+                  "nullable": false
+                }
+              },
+              "foreignKeys": [
+                {
+                  "name": "fk_curso_turma",
+                  "onDelete": "restrict",
+                  "onUpdate": "cascade",
+                  "source": {
+                    "columns": [
+                      "curso_id"
+                    ],
+                    "namespaceId": "public",
+                    "tableName": "turma"
+                  },
+                  "target": {
+                    "columns": [
+                      "id"
+                    ],
+                    "namespaceId": "public",
+                    "tableName": "curso"
+                  }
+                },
+                {
+                  "name": "fk_disciplina_turma",
+                  "onDelete": "cascade",
+                  "onUpdate": "cascade",
+                  "source": {
+                    "columns": [
+                      "disciplina_id"
+                    ],
+                    "namespaceId": "public",
+                    "tableName": "turma"
+                  },
+                  "target": {
+                    "columns": [
+                      "id"
+                    ],
+                    "namespaceId": "public",
+                    "tableName": "disciplina"
+                  }
+                },
+                {
+                  "name": "fk_quadrimestre_turma",
+                  "onDelete": "restrict",
+                  "onUpdate": "cascade",
+                  "source": {
+                    "columns": [
+                      "quadrimestre_id"
+                    ],
+                    "namespaceId": "public",
+                    "tableName": "turma"
+                  },
+                  "target": {
+                    "columns": [
+                      "id"
+                    ],
+                    "namespaceId": "public",
+                    "tableName": "quadrimestre"
+                  }
+                }
+              ],
+              "indexes": [],
+              "primaryKey": {
+                "columns": [
+                  "id"
+                ],
+                "name": "turma_pkey"
+              },
+              "uniques": [
+                {
+                  "columns": [
+                    "codigo",
+                    "disciplina_id",
+                    "quadrimestre_id",
+                    "turno",
+                    "campus"
+                  ],
+                  "name": "uq_turma_disciplina_quadrimestre_turno_campus"
+                }
+              ]
+            }
+          },
+          "valueSet": {
+            "EnumCampus": {
+              "kind": "valueSet",
+              "values": [
+                "SA",
+                "SBC"
+              ]
+            },
+            "EnumDiaSemana": {
+              "kind": "valueSet",
+              "values": [
+                "seg",
+                "ter",
+                "qua",
+                "qui",
+                "sex",
+                "sab"
+              ]
+            },
+            "EnumPeriodicidade": {
+              "kind": "valueSet",
+              "values": [
+                "semanal",
+                "q1",
+                "q2"
+              ]
+            },
+            "EnumTipoAula": {
+              "kind": "valueSet",
+              "values": [
+                "teoria",
+                "pratica"
+              ]
+            }
+          }
+        },
+        "id": "public",
+        "kind": "postgres-schema"
+      }
+    },
+    "storageHash": "813be4228f6ec861fea23fcfc842c700dc359cabc54e2560bf63c99b5ae5f8ef"
+  },
+  "capabilities": {
+    "postgres": {
+      "distinctOn": true,
+      "forKeyShare": true,
+      "forNoKeyUpdate": true,
+      "jsonAgg": true,
+      "lateral": true,
+      "limit": true,
+      "orderBy": true,
+      "returning": true
+    },
+    "sql": {
+      "checkConstraint": true,
+      "defaultInInsert": true,
+      "enums": true,
+      "forShare": true,
+      "forUpdate": true,
+      "insertOnConflictSkip": true,
+      "insertOnConflictWithoutTarget": true,
+      "lateral": true,
+      "lockNowait": true,
+      "lockOf": true,
+      "lockSkipLocked": true,
+      "returning": true,
+      "scalarList": true
+    }
+  },
+  "extensions": {},
+  "meta": {},
+  "_generated": {
+    "warning": "⚠️  GENERATED FILE - DO NOT EDIT",
+    "message": "This file is automatically generated by \"prisma contract emit\".",
+    "regenerate": "To regenerate, run: prisma contract emit"
+  }
+}
