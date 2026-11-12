@@ -87,3 +87,66 @@ export function IconeSetaBaixo(props: IconeProps) {
     </Icone>
   );
 }
+
+export function IconeRelogio(props: IconeProps) {
+  return (
+    <Icone {...props}>
+      <circle cx="12" cy="12" r="10" />
+      <path d="M12 6v6l4 2" />
+    </Icone>
+  );
+}
+
+export function IconeInfo(props: IconeProps) {
+  return (
+    <Icone {...props}>
+      <circle cx="12" cy="12" r="10" />
+      <path d="M12 16v-4M12 8h.01" />
+    </Icone>
+  );
+}
+
+export function IconeLocal(props: IconeProps) {
+  return (
+    <Icone {...props}>
+      <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z" />
+      <circle cx="12" cy="10" r="3" />
+    </Icone>
+  );
+}
+
+export function IconeSol(props: IconeProps) {
+  return (
+    <Icone {...props}>
+      <circle cx="12" cy="12" r="4" />
+      <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41" />
+    </Icone>
+  );
+}
+
+export function IconePorDoSol(props: IconeProps) {
+  return (
+    <Icone {...props}>
+      <path d="M12 10V2M4.93 10.93l1.41 1.41M2 18h2M20 18h2M19.07 10.93l-1.41 1.41M22 22H2M16 6l-4 4-4-4M16 18a4 4 0 0 0-8 0" />
+    </Icone>
+  );
+}
+
+export function IconeLua(props: IconeProps) {
+  return (
+    <Icone {...props}>
+      <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z" />
+    </Icone>
+  );
+}
+
+export function IconeLixeira(props: IconeProps) {
+  return (
+    <Icone {...props}>
+      <path d="M3 6h18" />
+      <path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6" />
+      <path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2" />
+      <path d="M10 11v6M14 11v6" />
+    </Icone>
+  );
+}
