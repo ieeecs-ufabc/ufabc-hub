@@ -87,3 +87,5 @@ export async function getTurmasQuadrimestreAtual() {
 
   return turmas;
 }
+
+export type TurmaPropsData = Awaited<ReturnType<typeof getTurmasQuadrimestreAtual>>[number];
