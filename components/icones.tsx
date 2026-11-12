@@ -150,3 +150,53 @@ export function IconeLixeira(props: IconeProps) {
     </Icone>
   );
 }
+
+export function IconeUsuario(props: IconeProps) {
+  return (
+    <Icone {...props}>
+      <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2" />
+      <circle cx="12" cy="7" r="4" />
+    </Icone>
+  );
+}
+
+export function IconeCheck(props: IconeProps) {
+  return (
+    <Icone {...props}>
+      <path d="M20 6 9 17l-5-5" />
+    </Icone>
+  );
+}
+
+export function IconeMais(props: IconeProps) {
+  return (
+    <Icone {...props}>
+      <path d="M5 12h14M12 5v14" />
+    </Icone>
+  );
+}
+
+export function IconeAlerta(props: IconeProps) {
+  return (
+    <Icone {...props}>
+      <path d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126zM12 15.75h.007v.008H12v-.008z" />
+    </Icone>
+  );
+}
+
+export function IconeAlertaCirculo(props: IconeProps) {
+  return (
+    <Icone {...props}>
+      <circle cx="12" cy="12" r="10" />
+      <path d="M12 8v4M12 16h.01" />
+    </Icone>
+  );
+}
+
+export function IconeProibido(props: IconeProps) {
+  return (
+    <Icone {...props}>
+      <path d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636" />
+    </Icone>
+  );
+}
