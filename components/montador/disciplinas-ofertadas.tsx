@@ -3,6 +3,8 @@
 import { useEffect, useRef, useState } from "react";
 import { IconeBusca } from "@/components/icones";
 import { MenuPesquisa } from "@/components/montador/menu-pesquisa";
+import type { TurmaPropsData } from "@/services/quadrimestre";
+
 import {
   FILTROS_OFERTADAS_INICIAIS,
   type FiltrosOfertadas,
@@ -11,6 +13,7 @@ import {
 type DisciplinasOfertadasProps = {
   ativa: boolean;
   onVoltar: () => void;
+  turmas: TurmaPropsData[];
 };
 
 export function DisciplinasOfertadas({ ativa, onVoltar }: DisciplinasOfertadasProps) {

@@ -3,8 +3,9 @@
 import { useEffect, useRef, useState } from "react";
 import { DisciplinasOfertadas } from "@/components/montador/disciplinas-ofertadas";
 import { MontadorMobile } from "@/components/montador/montador-mobile";
+import type { TurmaPropsData } from "@/services/quadrimestre";
 
-export function TelasMontador() {
+export function TelasMontador({ turmas}: { turmas: TurmaPropsData[] }) {
   const [pesquisando, setPesquisando] = useState(false);
   const origemDoFoco = useRef<HTMLElement | null>(null);
 
@@ -27,7 +28,7 @@ export function TelasMontador() {
     html.style.overflow = "hidden";
 
     return () => {
-      html.style.overflow = overflowAnterior;
+      html.style.overflow = overflowAnterior;   
     };
   }, [pesquisando]);
 
@@ -55,7 +56,7 @@ export function TelasMontador() {
           pesquisando ? "translate-x-0" : "invisible translate-x-full"
         }`}
       >
-        <DisciplinasOfertadas ativa={pesquisando} onVoltar={fecharPesquisa} />
+        <DisciplinasOfertadas ativa={pesquisando} onVoltar={fecharPesquisa} turmas={turmas}/>
       </div>
     </div>
   );
