@@ -685,10 +685,7 @@
                 "nullable": false,
                 "type": {
                   "codecId": "sql/char@1",
-                  "kind": "scalar",
-                  "typeParams": {
-                    "length": 1
-                  }
+                  "kind": "scalar"
                 }
               },
               "vagas": {
@@ -1388,10 +1385,7 @@
                 "turno": {
                   "codecId": "sql/char@1",
                   "dataType": "pg/char",
-                  "nullable": false,
-                  "typeParams": {
-                    "length": 1
-                  }
+                  "nullable": false
                 },
                 "vagas": {
                   "codecId": "pg/int4@1",
@@ -1523,7 +1517,7 @@
         "kind": "postgres-schema"
       }
     },
-    "storageHash": "813be4228f6ec861fea23fcfc842c700dc359cabc54e2560bf63c99b5ae5f8ef"
+    "storageHash": "66aba4e81ba4d0505e15a7a842ff10cc7603bf5c82f1f259bdeba4e544fd4079"
   },
   "capabilities": {
     "postgres": {
@@ -1543,6 +1537,7 @@
       "forShare": true,
       "forUpdate": true,
       "insertOnConflictSkip": true,
+      "insertOnConflictTarget": true,
       "insertOnConflictWithoutTarget": true,
       "lateral": true,
       "lockNowait": true,
