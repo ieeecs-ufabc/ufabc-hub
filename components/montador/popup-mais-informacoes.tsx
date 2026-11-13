@@ -63,7 +63,7 @@ export function PopupMaisInformacoes({ turma, onFechar }: PopupMaisInformacoesPr
       onClick={(evento) => {
         if (evento.target === evento.currentTarget) onFechar();
       }}
-      className="fixed inset-x-0 top-auto bottom-0 mx-auto max-h-[85dvh] w-full max-w-md overflow-y-auto overscroll-contain rounded-t-3xl border-t border-slate-100 bg-white text-slate-900 translate-y-full transition-[translate,overlay,display] transition-discrete duration-300 ease-out open:translate-y-0 starting:open:translate-y-full backdrop:bg-slate-900/40 backdrop:opacity-0 backdrop:transition-[opacity,overlay,display] backdrop:transition-discrete backdrop:duration-300 open:backdrop:opacity-100 starting:open:backdrop:opacity-0 motion-reduce:transition-none motion-reduce:backdrop:transition-none"
+      className="fixed inset-x-0 top-auto bottom-0 mx-auto max-h-[85dvh] w-full max-w-md overflow-x-hidden overflow-y-auto overscroll-contain [scrollbar-width:none] rounded-t-3xl [&::-webkit-scrollbar]:hidden border-t border-slate-100 bg-white text-slate-900 translate-y-full transition-[translate,overlay,display] transition-discrete duration-300 ease-out open:translate-y-0 starting:open:translate-y-full backdrop:bg-slate-900/40 backdrop:opacity-0 backdrop:transition-[opacity,overlay,display] backdrop:transition-discrete backdrop:duration-300 open:backdrop:opacity-100 starting:open:backdrop:opacity-0 motion-reduce:transition-none motion-reduce:backdrop:transition-none"
     >
       {turmaExibida && (
         <div className="relative px-5 pt-5.5 pb-5">
@@ -161,7 +161,7 @@ function Bibliografia({ titulo, icone, referencias }: BibliografiaProps) {
         {icone}
         {titulo}
       </h3>
-      <div className="mt-2.5 rounded-2xl border border-slate-200/80 bg-slate-50 p-3.5 text-xs leading-5 text-slate-700">
+      <div className="mt-2.5 rounded-2xl border border-slate-200/80 bg-slate-50 p-3.5 text-xs leading-5 wrap-anywhere text-slate-700">
         {referencias.length > 0 ? (
           <ul className="flex flex-col gap-2">
             {referencias.map((referencia) => (
