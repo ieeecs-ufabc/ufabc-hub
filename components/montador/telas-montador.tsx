@@ -12,6 +12,7 @@ import {
   mesmasTurmas,
   salvarIds,
 } from "@/lib/montador/turmas-url";
+import { useFecharComVoltar } from "@/lib/montador/use-fechar-com-voltar";
 import type { TurmaPropsData } from "@/services/quadrimestre";
 
 type TurmaNaGrade = { id: string; cor: number };
@@ -69,6 +70,10 @@ export function TelasMontador({ turmas }: { turmas: TurmaPropsData[] }) {
     const codigos = grade.flatMap((g) => porId.get(g.id)?.codigoTurma ?? []);
     salvarIds(codigos);
     escreverIdsNaUrl(codigos);
+
+    const manterUrlAtualizada = () => escreverIdsNaUrl(codigos);
+    window.addEventListener("popstate", manterUrlAtualizada);
+    return () => window.removeEventListener("popstate", manterUrlAtualizada);
   }, [grade, pronto, conflito, porId]);
 
   const idsDosCodigos = (codigos: string[]) =>
@@ -103,6 +108,8 @@ export function TelasMontador({ turmas }: { turmas: TurmaPropsData[] }) {
   function fecharPesquisa() {
     setPesquisando(false);
   }
+
+  useFecharComVoltar(pesquisando, fecharPesquisa);
 
   useEffect(() => {
     if (!pesquisando) return;

@@ -3,6 +3,7 @@
 import { useEffect, useRef } from "react";
 import { IconeLivro, IconeMarcador, IconeRelogio, IconeBussola, IconeFechar } from "@/components/icones";
 import { DIAS_LONGOS, formatCreditos, formatHora, nomesDocentes, type Disciplina } from "@/lib/montador/disciplina";
+import { useFecharComVoltar } from "@/lib/montador/use-fechar-com-voltar";
 
 const TPIE = [
   ["Teoria", "t"],
@@ -27,6 +28,7 @@ type Props = { disciplina: Disciplina | null; open: boolean; onClose: () => void
 
 export function PopUpDetalhes({ disciplina: d, open, onClose }: Props) {
   const fechar = useRef<HTMLButtonElement>(null);
+  useFecharComVoltar(open, onClose);
 
   useEffect(() => {
     if (!open) return;
