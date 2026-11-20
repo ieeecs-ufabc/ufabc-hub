@@ -21,7 +21,7 @@ type Conflito = { antigas: string[]; novas: string[] }; // códigos de turma
 const paraGrade = (ids: string[]): TurmaNaGrade[] =>
   ids.map((id, i) => ({ id, cor: i % CORES.length }));
 
-export function TelasMontador({ turmas }: { turmas: TurmaPropsData[] }) {
+export function TelasMontador({ turmas, quadrimestre }: { turmas: TurmaPropsData[]; quadrimestre: string | undefined }) {
   const [pesquisando, setPesquisando] = useState(false);
   const [grade, setGrade] = useState<TurmaNaGrade[]>([]);
   const origemDoFoco = useRef<HTMLElement | null>(null);
@@ -139,6 +139,7 @@ export function TelasMontador({ turmas }: { turmas: TurmaPropsData[] }) {
         }`}
       >
         <GrandeMontador
+          quadrimestre={quadrimestre}
           disciplinas={naGrade}
           onRemover={remover}
           onDesfazer={adicionar}

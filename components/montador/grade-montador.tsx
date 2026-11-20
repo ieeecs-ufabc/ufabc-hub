@@ -58,11 +58,19 @@ export function GrandeMontador({ disciplinas, quadrimestre, onRemover, onDesfaze
   return (
     <main className="mx-auto w-full max-w-lg px-3 pb-28 pt-[calc(18px+env(safe-area-inset-top))]">
       <header className="flex items-end justify-between px-1 pb-3.5">
-        <h1 className="text-[44px] font-extrabold leading-[.9] tracking-[-0.04em]">Grade</h1>
-        {quadrimestre && (
-          <p className="text-right font-mono text-[11px] leading-normal text-grade-mute">
-            Quadrimestre<br />{quadrimestre}
-          </p>
+        <div className="flex items-start gap-2">
+          <h1 className="text-[44px] font-extrabold leading-[.9] tracking-[-0.04em]">Grade</h1>
+          <span className="text-xs font-bold text-grade-mute">BETA</span>
+        </div>
+          {quadrimestre && (
+            <div className="flex flex-col items-end">
+                <span className="text-right font-mono text-[11px] leading-normal text-grade-mute">
+                  Quadrimestre
+                </span>
+                <span className="text-right font-mono text-[11px] leading-normal text-grade font-bold">
+                  {quadrimestre}
+                </span>
+            </div>
         )}
       </header>
 

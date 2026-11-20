@@ -20,7 +20,7 @@ export async function getTurmasQuadrimestreAtual() {
     .first();
 
   if (!quadrimestre) {
-    return [];
+    return { turmas: [], quadrimestre: undefined }; 
   }
 
   const turmas = quadrimestre.turmas.map((turma) => {
@@ -85,7 +85,7 @@ export async function getTurmasQuadrimestreAtual() {
     };
   });
 
-  return turmas;
+  return {turmas: turmas, quadrimestre: quadrimestre.codigo};
 }
 
-export type TurmaPropsData = Awaited<ReturnType<typeof getTurmasQuadrimestreAtual>>[number];
+export type TurmaPropsData = Awaited<ReturnType<typeof getTurmasQuadrimestreAtual>>["turmas"][number];

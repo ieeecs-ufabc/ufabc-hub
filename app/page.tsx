@@ -5,8 +5,8 @@ import { getTurmasQuadrimestreAtual } from "@/services/quadrimestre";
 
 
 async function Montador() {
-  const turmas = await getTurmasQuadrimestreAtual();
-  return <TelasMontador turmas={turmas} />;
+  const response = await getTurmasQuadrimestreAtual();
+  return <TelasMontador turmas={response.turmas} quadrimestre={response.quadrimestre} />;
 }
 
 export default function Home() {
