@@ -1,7 +1,7 @@
 "use client";
 
 import { useCallback, useDeferredValue, useEffect, useMemo, useRef, useState } from "react";
-import { IconeAlerta, IconeBusca, IconeCheck } from "@/components/icones";
+import { IconeAlerta, IconeBusca, IconeCheck, IconeSetaBaixo } from "@/components/icones";
 import { PopUpDetalhes } from "./popup-detalhes";
 import { TurmaBuscaCard } from "./turma-busca-card";
 import { getEstado } from "@/lib/montador/conflitos";
@@ -35,6 +35,33 @@ function Opcoes({ legenda, valor, opcoes, onChange }: { legenda: string; valor: 
         ))}
       </div>
     </div>
+  );
+}
+
+function SeletorCurso({ valor, cursos, onChange }: { valor: string; cursos: string[]; onChange: (v: string) => void }) {
+  return (
+    <label className="block">
+      <span className="mb-1.5 block font-mono text-[10px] text-grade-mute">Curso</span>
+      <span className="relative block">
+        <select
+          value={valor}
+          onChange={(e) => onChange(e.target.value)}
+          className={`h-11 w-full appearance-none truncate rounded-full border bg-grade-bg pl-4 pr-10 text-[13px] font-semibold focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-grade-ink ${
+            valor === TODOS ? "border-grade-line text-grade-mute" : "border-grade-accent text-grade-ink"
+          }`}
+        >
+          <option value={TODOS}>Todos os cursos</option>
+          {cursos.map((c) => (
+            <option key={c} value={c}>
+              {c}
+            </option>
+          ))}
+        </select>
+        <span className="pointer-events-none absolute right-3.5 top-1/2 -translate-y-1/2 text-grade-mute">
+          <IconeSetaBaixo className="size-4" />
+        </span>
+      </span>
+    </label>
   );
 }
 
@@ -73,6 +100,7 @@ export function BuscaDisciplinas({ ativa, disciplinas, naGrade, onAdicionar, onR
   const [busca, setBusca] = useState("");
   const [turno, setTurno] = useState(TODOS);
   const [campus, setCampus] = useState(TODOS);
+  const [curso, setCurso] = useState(TODOS);
   const [ocultarConflitos, setOcultarConflitos] = useState(true);
   const [quantidade, setQuantidade] = useState(TAMANHO_DO_LOTE);
   const [detalhe, setDetalhe] = useState<Disciplina | null>(null);
@@ -84,6 +112,7 @@ export function BuscaDisciplinas({ ativa, disciplinas, naGrade, onAdicionar, onR
 
   const turnos = useMemo(() => unicos(disciplinas.map((d) => d.turno)), [disciplinas]);
   const campi = useMemo(() => unicos(disciplinas.map((d) => d.campus)), [disciplinas]);
+  const cursos = useMemo(() => unicos(disciplinas.map((d) => d.curso)).sort(ordemAlfabetica.compare), [disciplinas]);
 
   // Ordena e normaliza o texto de busca uma única vez.
   const indice = useMemo(
@@ -100,10 +129,15 @@ export function BuscaDisciplinas({ ativa, disciplinas, naGrade, onAdicionar, onR
   const filtradas = useMemo(() => {
     const termos = semAcento(buscaAdiada).split(/\s+/).filter(Boolean);
     return indice
-      .filter(({ d }) => (turno === TODOS || d.turno === turno) && (campus === TODOS || d.campus === campus))
+      .filter(
+        ({ d }) =>
+          (turno === TODOS || d.turno === turno) &&
+          (campus === TODOS || d.campus === campus) &&
+          (curso === TODOS || d.curso === curso),
+      )
       .filter(({ alvo }) => termos.every((t) => alvo.includes(t)))
       .map(({ d }) => d);
-  }, [indice, buscaAdiada, turno, campus]);
+  }, [indice, buscaAdiada, turno, campus, curso]);
 
   const { resultados, ocultas } = useMemo(() => {
     if (!ocultarConflitos) return { resultados: filtradas, ocultas: 0 };
@@ -146,6 +180,15 @@ export function BuscaDisciplinas({ ativa, disciplinas, naGrade, onAdicionar, onR
 
   const mudar = <T,>(set: (v: T) => void) => (v: T) => { set(v); setQuantidade(TAMANHO_DO_LOTE); };
 
+  const filtrosAlterados = turno !== TODOS || campus !== TODOS || curso !== TODOS || !ocultarConflitos;
+  const limparFiltros = () => {
+    setCurso(TODOS);
+    setTurno(TODOS);
+    setCampus(TODOS);
+    setOcultarConflitos(true);
+    setQuantidade(TAMANHO_DO_LOTE);
+  };
+
   const abrir = useCallback((d: Disciplina) => { setDetalhe(d); setAberto(true); }, []);
   const fechar = useCallback(() => setAberto(false), []);
 
@@ -184,9 +227,20 @@ export function BuscaDisciplinas({ ativa, disciplinas, naGrade, onAdicionar, onR
       </header>
 
       <section aria-label="Filtros" className="mt-1 grid gap-3.5 rounded-[18px] border border-grade-line bg-grade-surface p-3.5">
+
+        <SeletorCurso valor={curso} cursos={cursos} onChange={mudar(setCurso)} />
         <Opcoes legenda="Turno" valor={turno} opcoes={turnos} onChange={mudar(setTurno)} />
         <Opcoes legenda="Campus" valor={campus} opcoes={campi} onChange={mudar(setCampus)} />
-      </section>
+          <div className="-mb-1 flex justify-end">
+            <button
+              type="button"
+              onClick={limparFiltros}
+              className="min-h-9 rounded-full border border-grade-line bg-grade-bg px-3.5 text-[12px] font-semibold text-grade-ink focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-grade-ink"
+            >
+              Limpar filtros
+            </button>
+          </div>
+       </section>
 
       <section
         aria-label="Conflitos de horário"
@@ -237,7 +291,7 @@ export function BuscaDisciplinas({ ativa, disciplinas, naGrade, onAdicionar, onR
       {disciplinas.length === 0 ? (
         <Vazio>Ainda não há turmas cadastradas para o quadrimestre atual.</Vazio>
       ) : resultados.length === 0 ? (
-        <Vazio>Nenhuma turma encontrada. Tente outro nome, limpe os filtros de turno e campus{ocultas > 0 && " ou desative o ocultar conflitos"}.</Vazio>
+        <Vazio>Nenhuma turma encontrada. Tente outro nome, limpe os filtros de curso, turno e campus{ocultas > 0 && " ou desative o ocultar conflitos"}.</Vazio>
       ) : (
         <ul className="grid gap-2.5">
           {visiveis.map((d) => (
