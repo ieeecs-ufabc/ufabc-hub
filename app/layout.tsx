@@ -9,7 +9,11 @@ const plusJakartaSans = Plus_Jakarta_Sans({
 
 export const metadata: Metadata = {
   title: "UFABC Hub",
-  description: "Monte a sua grade do quadrimestre na UFABC.",
+  description: "Monte a sua grade do quadrimestre!",
+  openGraph: {
+    title: "UFABC Hub",
+    description: "Monte o seu quadrimestre no UFABC HUB!",
+  },
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
